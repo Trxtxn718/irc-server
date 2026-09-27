@@ -15,6 +15,8 @@ async fn main() -> std::io::Result<()> {
                 match socket.read(&mut buf).await {
                     Ok(0) => break,
                     Ok(n) => {
+                        println!("{} bytes read", n);
+                        println!("{}", std::str::from_utf8(&buf[..n]).unwrap());
                         socket.write_all(&buf[..n]).await.unwrap();
                     }
                     Err(_) => break,
